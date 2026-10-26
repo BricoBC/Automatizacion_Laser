@@ -1,0 +1,18 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Copiar imagen al NAS",
+      "type": "process",
+      "command": "python",
+      "args": [
+        "${workspaceFolder}\\copy_file_to_nass.py"
+      ],
+      "problemMatcher": [],
+      "presentation": {
+        "reveal": "always",
+        "panel": "dedicated"
+      }
+    }
+  ]
+}
