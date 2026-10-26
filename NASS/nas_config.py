@@ -13,7 +13,12 @@ class NasConfig:
 
     @classmethod
     def load(cls, config_path: Optional[Union[str, Path]] = None) -> "NasConfig":
-        path = Path(config_path) if config_path else Path(__file__).with_name("config.yaml")
+        # Determine the path to the configuration file
+        path = (
+            Path(config_path)
+            if config_path
+            else Path(__file__).resolve().parent.parent / "config.yaml"
+        )
 
         with path.open(encoding="utf-8") as config_file:
             values = yaml.safe_load(config_file)

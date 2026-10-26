@@ -5,9 +5,20 @@ from typing import Iterable
 from NASS.nas_connection import connect_to_nas
 
 
-DEFAULT_NAS_DESTINATION = Path(
-    "1) Diseños-Catalogos"
-) / "DEFAULT"
+DEFAULT_NAS_DESTINATION = Path(".")
+
+
+def list_nas_directories(relative_folder: Path = Path(".")) -> list[str]:
+    """Return the names of immediate subdirectories in a NAS folder."""
+    relative_folder = Path(relative_folder)
+    if relative_folder.is_absolute() or ".." in relative_folder.parts:
+        raise ValueError("La carpeta debe estar dentro del recurso compartido.")
+
+    with connect_to_nas() as nas_path:
+        folder_path = nas_path / relative_folder
+        if not folder_path.is_dir():
+            raise FileNotFoundError(f"No existe la carpeta del NAS: {relative_folder}")
+        return sorted(child.name for child in folder_path.iterdir() if child.is_dir())
 
 
 def copy_files_to_nas(
