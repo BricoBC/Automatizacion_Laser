@@ -21,7 +21,7 @@ uploaded_file = st.file_uploader(
 )
 
 if uploaded_file is not None:
-    st.image(uploaded_file.getvalue(), caption=uploaded_file.name)
+    st.image(uploaded_file.getvalue(), caption=uploaded_file.name, width=300)
 
 operation = st.radio(
     "¿Qué quieres hacer?",
